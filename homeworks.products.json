@@ -34,3 +34,64 @@
   "price": 33000,
   "quality": 10
 }]
+db.products.insertMany([
+  { _id: 1, title: "Велосипед", price: 45000, count: 12 },
+  { _id: 2, title: "Самокат", price: 1500, count: 10 },
+  { _id: 3, title: "Ролики", price: 2000, count: 20 },
+  { _id: 4, title: "Лыжи", price: 22000, count: 15 },
+  { _id: 5, title: "Скейт", price: 19000, count: 4 },
+  { _id: 6, title: "Сноуборд", price: 33000, count: 17 }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5,
+    '5': 6
+  }
+}
+db.products.updateMany({ count: { $lt: 10 } }, { $set: { count: 10 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.products.updateMany({ price: { $lt: 20000 } }, { $inc: { price: 5000 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+db.products.updateMany({}, { $set: { quality: 0 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 6,
+  modifiedCount: 6,
+  upsertedCount: 0
+}
+db.products.updateMany({ price: { $gt: 20000 } }, { $set: { quality: 10 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.products.updateMany({ price: { $lte: 20000 } }, { $set: { quality: 5 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.products.updateMany({}, { $unset: { count: "" } });
+
