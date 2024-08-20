@@ -1,0 +1,36 @@
+[{
+  "_id": 1,
+  "title": "Велосипед",
+  "price": 45000,
+  "quality": 10
+},
+{
+  "_id": 2,
+  "title": "Самокат",
+  "price": 6500,
+  "quality": 5
+},
+{
+  "_id": 3,
+  "title": "Ролики",
+  "price": 7000,
+  "quality": 5
+},
+{
+  "_id": 4,
+  "title": "Лыжи",
+  "price": 22000,
+  "quality": 10
+},
+{
+  "_id": 5,
+  "title": "Скейт",
+  "price": 24000,
+  "quality": 10
+},
+{
+  "_id": 6,
+  "title": "Сноуборд",
+  "price": 33000,
+  "quality": 10
+}]

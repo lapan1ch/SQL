@@ -1,118 +1,45 @@
 [{
-  "_id": 1,
-  "firstname": "Петр",
-  "lastname": "Сергеев",
-  "position": "CEO",
-  "salary": 7000
-},
-{
-  "_id": 2,
-  "firstname": "Виктор",
-  "lastname": "Семенов",
-  "position": "Web-developer",
+  "_id": {
+    "$oid": "66c48e3e85e1567628ccc028"
+  },
+  "name": "Alice",
+  "age": 28,
+  "position": "Manager",
   "salary": 5000
 },
 {
-  "_id": 3,
-  "firstname": "Никита",
-  "lastname": "Петров",
-  "position": "Assistant",
-  "salary": 4500
+  "_id": {
+    "$oid": "66c48e3e85e1567628ccc029"
+  },
+  "name": "Bob",
+  "age": 35,
+  "position": "Developer",
+  "salary": 6000
 },
 {
-  "_id": 5,
-  "firstname": "Максим",
-  "lastname": "Максимов",
-  "position": "Assistant",
-  "salary": 2500
+  "_id": {
+    "$oid": "66c48e3e85e1567628ccc02a"
+  },
+  "name": "Charlie",
+  "age": 24,
+  "position": "Designer",
+  "salary": 4000
+},
+{
+  "_id": {
+    "$oid": "66c48e3e85e1567628ccc02b"
+  },
+  "name": "David",
+  "age": 31,
+  "position": "Analyst",
+  "salary": 5500
+},
+{
+  "_id": {
+    "$oid": "66c48e3e85e1567628ccc02c"
+  },
+  "name": "Eva",
+  "age": 29,
+  "position": "HR",
+  "salary": 4500
 }]
-
-db.employees.find({ firstname: { $in: ["Инна", "Максим", "Петр"] } });
-{
-  _id: 1,
-  firstname: 'Петр',
-  lastname: 'Сергеев',
-  position: 'CEO',
-  salary: 7000
-}
-{
-  _id: 4,
-  firstname: 'Инна',
-  lastname: 'Орлова',
-  position: 'Accountant',
-  salary: 4500
-}
-{
-  _id: 5,
-  firstname: 'Максим',
-  lastname: 'Максимов',
-  position: 'Assistant',
-  salary: 2500
-}
-{
-  _id: 6,
-  firstname: 'Инна',
-  lastname: 'Сидрова',
-  position: 'Accountant',
-  salary: 4000
-}
-db.employees.find({ 
-    position: { $in: ["Accountant", "Assistant"] }, 
-    salary: { $lt: 4500 } 
-});
-{
-  _id: 5,
-  firstname: 'Максим',
-  lastname: 'Максимов',
-  position: 'Assistant',
-  salary: 2500
-}
-{
-  _id: 6,
-  firstname: 'Инна',
-  lastname: 'Сидрова',
-  position: 'Accountant',
-  salary: 4000
-}
-db.employees.deleteMany({ firstname: "Инна" });
-{
-  acknowledged: true,
-  deletedCount: 2
-}
-db.employees.find({
-    $or: [
-        { salary: { $gt: 4600 } },
-        { salary: { $lt: 3000 } }
-    ]
-});
-{
-  _id: 1,
-  firstname: 'Петр',
-  lastname: 'Сергеев',
-  position: 'CEO',
-  salary: 7000
-}
-{
-  _id: 2,
-  firstname: 'Виктор',
-  lastname: 'Семенов',
-  position: 'Web-developer',
-  salary: 5000
-}
-{
-  _id: 5,
-  firstname: 'Максим',
-  lastname: 'Максимов',
-  position: 'Assistant',
-  salary: 2500
-}
-db.employees.find({
-    position: "Accountant",
-    salary: { $gt: 3000 }
-});
-db.employees.deleteOne({ salary: 4000 });
-{
-  acknowledged: true,
-  deletedCount: 0
-}
-db.employees.deleteMany({ firstname: "Инна" });
