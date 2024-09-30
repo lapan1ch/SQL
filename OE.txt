@@ -1,0 +1,83 @@
+create database oe;
+
+use oe;
+
+select c.CUST_FIRST_NAME, c.CUST_LAST_NAME, o.ORDER_DATE
+from customers c
+join orders o on c.CUSTOMER_ID = o.CUSTOMER_ID;
+
+SELECT 
+    order_date, 
+    (SELECT PRODUCT_DESCRIPTION 
+     FROM product_information p 
+     JOIN order_items oi ON p.PRODUCT_ID = oi.PRODUCT_ID 
+     WHERE oi.order_id = o.order_id) AS PRODUCT_DESCRIPTION
+FROM 
+    orders o;
+
+SELECT 
+    c.CUST_FIRST_NAME, 
+    c.CUST_LAST_NAME
+FROM 
+    customers c
+LEFT JOIN 
+    orders o ON c.CUSTOMER_ID = o.CUSTOMER_ID
+WHERE 
+    o.order_id IS NULL;
+    
+   SELECT 
+    c.CUST_FIRST_NAME, 
+    c.CUST_LAST_NAME
+FROM 
+    customers c
+JOIN 
+    orders o ON c.CUSTOMER_ID = o.CUSTOMER_ID
+JOIN 
+    order_items oi ON o.order_id = oi.order_id
+JOIN 
+    product_information p ON oi.PRODUCT_ID = p.PRODUCT_ID
+WHERE 
+    c.gender = 'M'                   
+    AND c.marital_status = 'Married' 
+    AND p.list_price > 550;  
+    
+SELECT 
+    p.PRODUCT_NAME,
+    c.CATEGORY_DESCRIPTION,
+    SUM(oi.quantity) AS total_quantity
+FROM 
+    product_information p
+JOIN 
+    categories_tab c ON p.CATEGORY_ID = c.CATEGORY_ID
+LEFT JOIN 
+    order_items oi ON p.PRODUCT_ID = oi.PRODUCT_ID
+WHERE 
+    p.min_price > 300  
+GROUP BY 
+    p.PRODUCT_NAME, c.CATEGORY_DESCRIPTION;
+
+SELECT 
+    p.PRODUCT_NAME
+FROM 
+    product_information p
+WHERE
+    p.PRODUCT_ID NOT IN (SELECT oi.PRODUCT_ID FROM order_items oi);
+    
+    SELECT 
+    c.CUST_FIRST_NAME AS First_Name, 
+    c.CUST_LAST_NAME AS Last_Name, 
+    o.order_date AS Order_Date, 
+    p.product_description AS Product_Description, 
+    cat.category_name AS Category_Name
+FROM 
+    customers c
+JOIN 
+    orders o ON c.CUSTOMER_ID = o.CUSTOMER_ID
+JOIN 
+    order_items oi ON o.order_id = oi.order_id
+JOIN 
+    product_information p ON oi.PRODUCT_ID = p.PRODUCT_ID
+JOIN 
+    categories_tab cat ON p.CATEGORY_ID = cat.CATEGORY_ID
+ORDER BY 
+    o.order_date;
