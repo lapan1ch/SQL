@@ -1,0 +1,67 @@
+use oe;
+
+SELECT 
+    MAX(credit_limit) AS max_credit_limit,
+    MIN(credit_limit) AS min_credit_limit
+FROM 
+    customers;
+    
+ SELECT 
+    c.CUST_FIRST_NAME, 
+    c.CUST_LAST_NAME, 
+    c.CREDIT_LIMIT
+FROM 
+    customers c
+WHERE 
+    c.CREDIT_LIMIT > (SELECT AVG(CREDIT_LIMIT) FROM customers);  
+    
+  SELECT 
+    COUNT(*) AS customer_count
+FROM 
+    customers
+WHERE 
+    CUST_FIRST_NAME LIKE 'D%'     
+    AND CREDIT_LIMIT > 500;  
+    
+ SELECT 
+    AVG(UNIT_PRICE) AS average_unit_price
+FROM 
+    order_items;   
+    
+ SELECT 
+    pi.PRODUCT_NAME
+FROM 
+    product_information pi
+JOIN 
+    order_items oi ON pi.PRODUCT_ID = oi.PRODUCT_ID
+    GROUP BY 
+    pi.PRODUCT_NAME
+HAVING 
+    SUM(oi.QUANTITY) < (SELECT AVG(total_quantity) 
+                        FROM (SELECT SUM(quantity) AS total_quantity 
+                              FROM order_items 
+                              GROUP BY PRODUCT_ID) subquery);
+    
+    
+    
+    SELECT 
+    c.CUST_FIRST_NAME, 
+    c.CUST_LAST_NAME
+FROM 
+    customers c
+JOIN 
+    orders o ON c.CUSTOMER_ID = o.CUSTOMER_ID
+GROUP BY 
+    c.CUSTOMER_ID, c.CUST_FIRST_NAME, c.CUST_LAST_NAME
+ORDER BY 
+    SUM(o.order_total) DESC
+LIMIT 1;
+    
+  SELECT 
+    SUM(o.order_total) AS total_order_sum_male_customers
+FROM 
+    customers c
+JOIN 
+    orders o ON c.CUSTOMER_ID = o.CUSTOMER_ID
+WHERE 
+    c.gender = 'M';  
